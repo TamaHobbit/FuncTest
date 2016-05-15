@@ -13,7 +13,13 @@ int fib(int n) {
 // same fibonacci function, but fully at compile time
 
 template< size_t N >
-struct compile_fib : std::integral_constant<size_t, compile_fib<N-1>::value + compile_fib<N-2>::value > {};
+struct compile_fib;
+
+template< size_t N >
+using compile_fib_v = typename compile_fib<N>::value;
+
+template< size_t N >
+struct compile_fib : std::integral_constant<size_t, compile_fib_v<N-1> +compile_fib_v<N-2> > {};
 
 template<>
 struct compile_fib<1> : std::integral_constant<size_t, 1> {};
