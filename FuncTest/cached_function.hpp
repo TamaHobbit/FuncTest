@@ -35,8 +35,8 @@ namespace CachedFunction {
 	template <typename FuncType>
 	using ResultType = typename boost::function_types::result_type<FuncType>::type;
 
-	template <class FuncType, FuncType functionPointer, class SoleArgType>
-	ResultType<FuncType> cached_function(SoleArgType argument) {
+	template <class FuncType, class SoleArgType>
+	ResultType<FuncType> cached_function(FuncType functionPointer, SoleArgType argument) {
 		static std::map< SoleArgType, ResultType<FuncType> > cache;
 		auto cacheIterator = cache.find(argument);
 		if (cacheIterator != cache.end()) return cacheIterator->second;
@@ -45,6 +45,7 @@ namespace CachedFunction {
 	
 	template <class FuncType, class ... ArgTypes>
 	ResultType<FuncType> cached_function(FuncType functionPointer, ArgTypes ... arguments) {
+		static_assert(sizeof...(ArgTypes) >= 2, "Wrong overload used for cached_function template instantiation; expected at least 2 function arguments for specialization using tuple");
 		// a tuple type to map all our function's parameters to the return type
 		using ArgumentTupleType = std::tuple<ArgTypes...>;
 		ArgumentTupleType parameters = std::make_tuple(arguments...);
