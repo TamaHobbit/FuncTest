@@ -22,8 +22,8 @@ ResultType<FuncType> cached_function(SoleArgType argument) {
 	return cache[argument] = functionPointer(argument);
 }
 
-template <class FuncType, FuncType functionPointer, class ... ArgTypes>
-ResultType<FuncType> cached_function(ArgTypes ... arguments) {
+template <class FuncType, class ... ArgTypes>
+ResultType<FuncType> cached_function(FuncType functionPointer, ArgTypes ... arguments) {
 	// a tuple type to map all our function's parameters to the return type
 	using ArgumentTupleType = std::tuple<ArgTypes...>;
 	ArgumentTupleType parameters = std::make_tuple(arguments...);
@@ -35,7 +35,7 @@ ResultType<FuncType> cached_function(ArgTypes ... arguments) {
 
 int fib(int n) {
 	if (n < 2) return n;
-	return cached_function<decltype(&fib),fib>(n - 1) + cached_function<decltype(&fib),fib>(n - 2);
+	return cached_function(fib, n - 1) + cached_function(fib, n - 2);
 }
 
 int main()
