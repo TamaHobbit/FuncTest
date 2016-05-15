@@ -1,3 +1,4 @@
 *
 !FuncTest/FuncTest.cpp
+!FuncTest/cached_function.hpp
 !.gitignore
