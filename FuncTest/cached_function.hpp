@@ -29,16 +29,16 @@ return cached_function(fib, n - 1) + cached_function(fib, n - 2);
 
 namespace CachedFunction {
 
-	template <class FuncType, class SoleArgType>
-	auto cached_function(FuncType functionPointer, SoleArgType argument) {
+	template <class FuncType, FuncType functionPointer, class SoleArgType>
+	auto cached_function(SoleArgType argument) {
 		static std::map< SoleArgType, decltype(functionPointer(std::declval<SoleArgType>())) > cache;
 		auto cacheIterator = cache.find(argument);
 		if (cacheIterator != cache.end()) return cacheIterator->second;
 		return cache[argument] = functionPointer(argument);
 	}
 	
-	template <class FuncType, class ... ArgTypes>
-	auto cached_function(FuncType functionPointer, ArgTypes ... arguments) {
+	template <class FuncType, FuncType functionPointer, class ... ArgTypes>
+	auto cached_function(ArgTypes ... arguments) {
 		static_assert(sizeof...(ArgTypes) >= 2, "Wrong overload used for cached_function template instantiation; expected at least 2 function arguments for specialization using tuple");
 		// a tuple type to map all our function's parameters to the return type
 		using ArgumentTupleType = std::tuple<ArgTypes...>;
