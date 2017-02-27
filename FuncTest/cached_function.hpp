@@ -21,9 +21,6 @@ return cached_function(fib, n - 1) + cached_function(fib, n - 2);
 }
 */
 
-// Note that C++17 may support this syntax: 
-
-
 #include <map>
 #include <tuple>
 
