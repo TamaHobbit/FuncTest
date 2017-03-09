@@ -1,1 +1,6 @@
 FuncTest
+fib.o
+a.out
+.gitignore
+fib
+fib.hi
