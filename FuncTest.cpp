@@ -1,6 +1,3 @@
-// FuncTest.cpp : Defines the entry point for the console application.
-//
-
 #include "cached_function.hpp"
 using namespace CachedFunction;
 
@@ -12,10 +9,7 @@ int fib(int n) {
 
 int main()
 {
-	for (int i = 0; i < 45; ++i)
-	{
-		printf("%i = %i\n", i, fib(i));
-	}
+	printf("%i", fib(45));
   return 0;
 }
 
