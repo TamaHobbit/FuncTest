@@ -16,7 +16,6 @@ int main()
 	{
 		printf("%i = %i\n", i, fib(i));
 	}
-	system("PAUSE");
-    return 0;
+  return 0;
 }
 
